@@ -5,6 +5,7 @@ public class Percolation {
     private final boolean[][] grid;
     private final int gridSize;
     private final WeightedQuickUnionUF uf;
+    private final WeightedQuickUnionUF uf2;
     private int numberOfOpenSites;
     private final int virtualTop;
     private final int virtualBottom;
@@ -17,6 +18,7 @@ public class Percolation {
         grid = new boolean[n][n];
         gridSize = n;
         uf = new WeightedQuickUnionUF(n * n + 2);
+        uf2 = new WeightedQuickUnionUF(n * n + 1);
         virtualTop = n * n;
         virtualBottom = virtualTop + 1;
 
@@ -45,10 +47,13 @@ public class Percolation {
             int newC = col + step[1];
             if (valid(newR) && valid(newC) && isOpen(newR, newC)) {
                 uf.union(getId(row, col), getId(newR, newC));
+                uf2.union(getId(row, col), getId(newR, newC));
             }
         }
+        // To prevent backwash!!
         if (row == 1) {
             uf.union(getId(row, col), virtualTop);
+            uf2.union(getId(row, col), virtualTop);
         }
         if (row == gridSize) {
             uf.union(getId(row, col), virtualBottom);
@@ -68,7 +73,7 @@ public class Percolation {
         if (!valid(row) || !valid(col)) {
             throw new IllegalArgumentException("wrong n");
         }
-        return isOpen(row, col) && uf.find(getId(row, col)) == uf.find(virtualTop);
+        return isOpen(row, col) && uf2.find(getId(row, col)) == uf2.find(virtualTop);
     }
 
     // returns the number of open sites

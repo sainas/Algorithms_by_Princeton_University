@@ -26,9 +26,14 @@ public class PercolationStats {
 
     private  double trial(int n) {
         Percolation pc = new Percolation(n);
+        int[] a = new int[n*n];
         for (int i = 0; i < n * n; i++) {
-            int row = StdRandom.uniform(n) + 1;
-            int col = StdRandom.uniform(n) + 1;
+            a[i] = i;
+        }
+        StdRandom.shuffle(a);
+        for (int i = 0; i < n * n; i++) {
+            int row = a[i] / n + 1;
+            int col = a[i] % n + 1;
             pc.open(row, col);
             if (pc.percolates()) {
                 break;
