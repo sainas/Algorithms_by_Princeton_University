@@ -1,4 +1,6 @@
-Backwash!!
+https://coursera.cs.princeton.edu/algs4/assignments/percolation/specification.php
+
+## Backwash!!
 
 If an open cell connected to the virtual Bottom and it percolates already, that open cell will be full, even if it actually shouldn't
 
