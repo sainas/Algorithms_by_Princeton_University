@@ -24,13 +24,12 @@ public class Deque<Item> implements Iterable<Item> {
     private void resize(int capacity) {
         assert capacity >= n;
         Item[] copy = (Item[]) new Object[capacity];
-        int startIndex = (capacity - n) / 2;
         for (int i = 0; i < n; i++) {
-            copy[startIndex + i] = q[(first + i) % q.length];
+            copy[i] = q[(first + i) % q.length];
         }
         q = copy;
-        first = startIndex;
-        last = startIndex + n;
+        first = 0;
+        last = n;
     }
 
 

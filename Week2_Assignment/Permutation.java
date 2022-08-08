@@ -10,10 +10,12 @@ public class Permutation {
         RandomizedQueue<String> rq = new RandomizedQueue<>();
         String next;
         double kf = (double) k;
+        double count = 0;
         while (!StdIn.isEmpty()) {
             next = StdIn.readString();
+            count++;
             if (rq.size() == k) {
-                if (StdRandom.bernoulli(kf / (kf + 1))) {
+                if (StdRandom.bernoulli(kf / count)) {
                     rq.dequeue();
                     rq.enqueue(next);
                 }
